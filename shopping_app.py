@@ -11,7 +11,7 @@ class ShoppingApp(App):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.products = [Product(product["name"], product["price"]) for product in
+        self.products = [Product(**product) for product in
                          [{"name": "Cheese", "price": 12.5}, {"name": "Laptop", "price": 912.95},
                           {"name": "Plant", "price": 4.75},
                           {"name": "Coffee Machine", "price": 2300.00}, {"name": "Guitar", "price": 4399.95}]]
@@ -35,6 +35,11 @@ class ShoppingApp(App):
 
     def press_entry(self, button):
         self.total_price += button.product.price
+        self.price_text = f"Total cost: ${self.total_price:,.2f}"
+
+    def press_reset(self):
+        self.total_price = 0
+        self.price_text = f"Total cost: ${self.total_price:,.2f}"
 
 
 ShoppingApp().run()
